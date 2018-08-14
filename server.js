@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const http = require('http').Server(app);
 const port = 3001;
+const indexRouter = require('./routers/indexRouter.js');
 
 const publicPath = path.join(__dirname, '../client/public');
 app.use(express.static(publicPath));
@@ -16,6 +17,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(indexRouter);
+
 const server = http.listen(port, () => {
-  console.log('Example app at', port);
+  console.log('App running at', port);
 });
