@@ -1,6 +1,0 @@
-#!/bin/sh
-
-dropdb
-createdb recipe
-psql -d recipe -f tables.sql
-psql -d recipe -f seed.sql
