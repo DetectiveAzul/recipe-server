@@ -2,17 +2,16 @@ const express = require('express');
 const router = express.Router();
 const pg = require('pg');
 const config = require('../db/config.js');
+//Routers
+const recipesRouter = require('./recipesRouter.js');
+const ingredientsRouter = require('./ingredientsRouter.js');
 
+// router.use('/users/', userRouter);
+router.use('/api/recipes/', recipesRouter);
+router.use('/api/ingredients/', ingredientsRouter);
 
-
-// MongoClient.connect(``, (err, client) => {
-//   console.log('Connected to DB');
-//   const db = client.db('chess');
-//   const gamesCollection = db.collection('games');
-//   const playersCollection = db.collection('players');
-//   router.use('/games/', gamesRouter(gamesCollection));
-//   router.use('/players/', playersRouter(playersCollection));
-//
-// });
+router.get('/', (res, req) => {
+  console.log('User entered main index');
+});
 
 module.exports = router;
