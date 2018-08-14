@@ -12,7 +12,7 @@ CREATE TABLE recipes(
 
 CREATE TABLE ingredients(
   id SERIAL8 PRIMARY KEY,
-  name VARCHAR(255),
+  name VARCHAR(255)
 );
 
 CREATE TABLE measurements(
@@ -25,8 +25,8 @@ CREATE TABLE quantities(
   recipe_id INT8 REFERENCES recipes(id) ON DELETE CASCADE,
   ingredient_id INT8 REFERENCES ingredients(id) ON DELETE CASCADE,
   measurement_id INT8 REFERENCES measurements(id) ON DELETE CASCADE,
-  ingredient_quantity FLOAT(8,2)
-)
+  ingredient_quantity DECIMAL(8,2)
+);
 
 CREATE TABLE recipe_steps(
   id SERIAL8 PRIMARY KEY,

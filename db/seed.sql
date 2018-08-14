@@ -5,7 +5,7 @@ VALUES ('Lasagna', 'Italian Pasta');
 SELECT * FROM recipes;
 
 INSERT INTO
-ingredients (name, description, measure_type)
+ingredients (name)
 VALUES ('Egg');
 
 SELECT * FROM ingredients;
