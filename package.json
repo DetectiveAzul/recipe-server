@@ -1,0 +1,28 @@
+{
+  "name": "recipe-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DetectiveAzul/recipe-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DetectiveAzul/recipe-server/issues"
+  },
+  "homepage": "https://github.com/DetectiveAzul/recipe-server#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "pg": "^7.4.3"
+  }
+}
