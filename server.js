@@ -16,10 +16,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', function (req, res) {
-
-});
-
 const server = http.listen(port, () => {
   console.log('Example app at', port);
 });
