@@ -12,7 +12,7 @@ const stepsRouter = require('./dbRouters/stepsRouter.js');
 router.use('/api/recipes/', recipesRouter);
 router.use('/api/ingredients/', ingredientsRouter);
 router.use('/api/measurements/', measurementsRouter);
-router.use('/api/quantities/', ingredientsRouter);
+router.use('/api/quantities/', quantitiesRouter);
 router.use('/api/steps/', stepsRouter);
 
 

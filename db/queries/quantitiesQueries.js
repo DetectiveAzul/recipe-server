@@ -36,8 +36,9 @@ const getOne = (req, res, next) => {
 
 // ADD NEW RECIPE
 const addOne = (req, res, next) => {
-  db.one('INSERT INTO quantities(name) ' +
-  'VALUES (${recipe_id}, ${ingredient_id}, ${measurement_id}, ${ingredient_quantity}) RETURNING id', req.body.payload)
+  db.one('INSERT INTO quantities(recipe_id, ingredient_id, measurement_id, ingredient_quantity) ' +
+  'VALUES (${recipe_id}, ${ingredient_id}, ${measurement_id}, ${ingredient_quantity}) '
+  + 'RETURNING id', req.body.payload)
     .then((result) => {
       res.status(200)
         .json({
@@ -53,13 +54,13 @@ const addOne = (req, res, next) => {
 
 // EDIT ONE RECIPE
 const updateOne = (req, res, next) => {
-  db.none('UPDATE quantities SET recipe_id=$1, ingredient_id=$2, measurement_id=$3 '
+  db.none('UPDATE quantities SET recipe_id=$1, ingredient_id=$2, measurement_id=$3, '
     + 'ingredient_quantity=$4 WHERE id=$5',
     [
-      parseInt(req.params.recipe_id), 
-      parseInt(req.params.ingredient_id),
-      parseInt(req.params.measurement_id),
-      parseInt(req.params.ingredients_quantity),
+      req.params.recipe_id,
+      req.params.ingredient_id,
+      req.params.measurement_id,
+      req.params.ingredients_quantity,
       parseInt(req.params.id)
     ])
     .then(() => {
