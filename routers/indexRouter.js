@@ -8,7 +8,6 @@ const measurementsRouter = require('./dbRouters/measurementsRouter.js');
 const quantitiesRouter = require('./dbRouters/quantitiesRouter.js');
 const stepsRouter = require('./dbRouters/stepsRouter.js');
 
-// router.use('/users/', userRouter);
 router.use('/api/recipes/', recipesRouter);
 router.use('/api/ingredients/', ingredientsRouter);
 router.use('/api/measurements/', measurementsRouter);
