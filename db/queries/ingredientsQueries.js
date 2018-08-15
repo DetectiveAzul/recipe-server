@@ -1,14 +1,15 @@
 // Connect to the database
 const db = require('../databaseConnection.js');
+
 // GET ALL RECIPES
 const getAll = (req, res, next) => {
-  db.any('SELECT * FROM recipes')
+  db.any('SELECT * FROM ingredients')
     .then((data) => {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: `Retrieved ${data.length} recipes`
+          message: `Retrieved ${data.length} Ingredients`
         });
     })
     .catch((err) => {
@@ -19,13 +20,13 @@ const getAll = (req, res, next) => {
 // GET SINGLE RECIPE
 const getOne = (req, res, next) => {
   const id = parseInt(req.params.id);
-  db.one('SELECT * FROM recipes WHERE id = $1', id)
+  db.one('SELECT * FROM ingredients WHERE id = $1', id)
     .then((data) => {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: `Retrieved ${data.length} recipe`
+          message: `Retrieved ${data.length} Ingredient`
         });
     })
     .catch((err) => {
@@ -35,14 +36,14 @@ const getOne = (req, res, next) => {
 
 // ADD NEW RECIPE
 const addOne = (req, res, next) => {
-  db.one('INSERT INTO recipes(name, description) ' +
-  'VALUES (${name}, ${description}) RETURNING id', req.body.payload)
+  db.one('INSERT INTO ingredients(name) ' +
+  'VALUES (${name}) RETURNING id', req.body.payload)
     .then((result) => {
       res.status(200)
         .json({
           status: 'success',
           id: parseInt(result.id),
-          message: `Inserted recipe id ${result.id}`
+          message: `Inserted Ingredient id ${result.id}`
         });
     })
     .catch((err) => {
@@ -52,13 +53,13 @@ const addOne = (req, res, next) => {
 
 // EDIT ONE RECIPE
 const updateOne = (req, res, next) => {
-  db.none('UPDATE recipes SET name=$1, description=$2 WHERE id=$3',
-    [req.body.name, req.body.description, parseInt(req.params.id)])
+  db.none('UPDATE ingredients SET name=$1 WHERE id=$3',
+    [req.body.name, parseInt(req.params.id)])
     .then(() => {
       res.status(200)
         .json({
           status: 'success',
-          message: `Updated Recipe id ${req.params.id}`
+          message: `Updated Ingredient id ${req.params.id}`
         });
     })
     .catch((err) => {
@@ -69,12 +70,12 @@ const updateOne = (req, res, next) => {
 // DELETE ONE RECIPE
 const deleteOne = (req, res, next) => {
   const id = parseInt(req.params.id);
-    db.result('DELETE FROM recipes WHERE id = $1', id)
+    db.result('DELETE FROM ingredients WHERE id = $1', id)
       .then((result) => {
         res.status(200)
           .json({
             status: 'success',
-            message: `Removed ${result.rowCount} recipe`
+            message: `Removed ${result.rowCount} ingredient`
           });
       })
       .catch((err) => {
@@ -84,12 +85,12 @@ const deleteOne = (req, res, next) => {
 
 // DELETE ALL RECIPES
 const deleteAll = (req, res, next) => {
-    db.result('DELETE FROM recipes')
+    db.result('DELETE FROM ingredients')
       .then((result) => {
         res.status(200)
           .json({
             status: 'success',
-            message: `Removed ${result.rowCount} recipe`
+            message: `Removed ${result.rowCount} ingredients`
           });
       })
       .catch((err) => {

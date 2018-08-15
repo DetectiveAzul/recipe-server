@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const pg = require('pg');
-const config = require('../db/config.js');
+
 //Routers
-const recipesRouter = require('./recipesRouter.js');
-const ingredientsRouter = require('./ingredientsRouter.js');
+const recipesRouter = require('./dbRouters/recipesRouter.js');
+const ingredientsRouter = require('./dbRouters/ingredientsRouter.js');
 
 // router.use('/users/', userRouter);
 router.use('/api/recipes/', recipesRouter);
