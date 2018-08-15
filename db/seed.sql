@@ -22,13 +22,13 @@ VALUES ('pint');
 SELECT * FROM measurements;
 
 INSERT INTO
-quantities(recipe_id, ingredient_id, measurement_id, ingredient_quantity)
+quantities(recipeId, ingredientId, measurementId, ingredientQuantity)
 VALUES(1, 1, 1, 4);
 
 SELECT * FROM quantities;
 
 INSERT INTO
-recipe_steps(recipe_id, step_number, step_description)
+steps(recipeId, stepNumber, stepDescription)
 VALUES(1, 1, 'Throw the eggs');
 
-SELECT * FROM recipe_steps;
+SELECT * FROM steps;

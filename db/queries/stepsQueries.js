@@ -36,8 +36,8 @@ const getOne = (req, res, next) => {
 
 // ADD NEW RECIPE
 const addOne = (req, res, next) => {
-  db.one('INSERT INTO steps(recipe_id, step_number, step_description) ' +
-  'VALUES (${recipe_id}, ${step_number}, ${step_description}) '
+  db.one('INSERT INTO steps(recipeId, stepNumber, stepDescription) ' +
+  'VALUES (${recipeId}, ${stepNumber}, ${stepDescription}) '
   + 'RETURNING id', req.body)
     .then((result) => {
       res.status(200)
@@ -54,8 +54,8 @@ const addOne = (req, res, next) => {
 
 // EDIT ONE RECIPE
 const updateOne = (req, res, next) => {
-  db.none('UPDATE steps SET recipe_id=$1, step_number=$2, step_description=$3 WHERE id=$4',
-    [req.body.recipe_id, req.body.step_number, req.body.step_description, parseInt(req.params.id)])
+  db.none('UPDATE steps SET recipeId=$1, stepNumber=$2, stepDescription=$3 WHERE id=$4',
+    [req.body.recipeId, req.body.stepNumber, req.body.stepDescription, parseInt(req.params.id)])
     .then(() => {
       res.status(200)
         .json({
