@@ -42,13 +42,12 @@ const get = (req, res, next) => {
 
 // ADD NEW RECIPE
 const post = (req, res, next) => {
-  db.one('INSERT INTO recipes(name, description) ' +
-  'VALUES(${name}, ${description}) RETURNING id', req.body)
-    .then((res) => {
+  db.none('INSERT INTO recipes(name, description) ' +
+  'VALUES (${name}, ${description})', req.body.payload)
+    .then(() => {
       res.status(200)
         .json({
           status: 'success',
-          id: 'id',
           message: 'Inserted one recipe'
         });
     })
