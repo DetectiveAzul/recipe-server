@@ -54,15 +54,8 @@ const addOne = (req, res, next) => {
 
 // EDIT ONE RECIPE
 const updateOne = (req, res, next) => {
-  db.none('UPDATE quantities SET recipe_id=$1, ingredient_id=$2, measurement_id=$3, '
-    + 'ingredient_quantity=$4 WHERE id=$5',
-    [
-      req.params.recipe_id,
-      req.params.ingredient_id,
-      req.params.measurement_id,
-      req.params.ingredients_quantity,
-      parseInt(req.params.id)
-    ])
+  db.none('UPDATE quantities SET recipe_id=$1, ingredient_id=$2, measurement_id=$3, ingredient_quantity=$4 WHERE id=$5',
+    [req.body.recipe_id, req.body.ingredient_id, req.body.measurement_id, req.body.ingredient_quantity, parseInt(req.params.id)])
     .then(() => {
       res.status(200)
         .json({
@@ -73,6 +66,7 @@ const updateOne = (req, res, next) => {
     .catch((err) => {
       return next(err);
     });
+
 };
 
 // DELETE ONE RECIPE
