@@ -4,13 +4,16 @@ const router = express.Router();
 //Routers
 const recipesRouter = require('./dbRouters/recipesRouter.js');
 const ingredientsRouter = require('./dbRouters/ingredientsRouter.js');
+const measurementsRouter = require('./dbRouters/measurementsRouter.js');
+const quantitiesRouter = require('./dbRouters/quantitiesRouter.js');
+const stepsRouter = require('./dbRouters/stepsRouter.js');
 
 // router.use('/users/', userRouter);
 router.use('/api/recipes/', recipesRouter);
 router.use('/api/ingredients/', ingredientsRouter);
+router.use('/api/measurements/', measurementsRouter);
+router.use('/api/quantities/', ingredientsRouter);
+router.use('/api/steps/', stepsRouter);
 
-router.get('/', (res, req) => {
-  console.log('User entered main index');
-});
 
 module.exports = router;

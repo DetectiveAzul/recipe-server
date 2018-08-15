@@ -3,13 +3,13 @@ const db = require('../databaseConnection.js');
 
 // GET ALL RECIPES
 const getAll = (req, res, next) => {
-  db.any('SELECT * FROM ingredients')
+  db.any('SELECT * FROM measurements')
     .then((data) => {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: `Retrieved ${data.length} Ingredients`
+          message: `Retrieved ${data.length} Measurements`
         });
     })
     .catch((err) => {
@@ -20,13 +20,13 @@ const getAll = (req, res, next) => {
 // GET SINGLE RECIPE
 const getOne = (req, res, next) => {
   const id = parseInt(req.params.id);
-  db.one('SELECT * FROM ingredients WHERE id = $1', id)
+  db.one('SELECT * FROM measurements WHERE id = $1', id)
     .then((data) => {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: `Retrieved ${data.length} Ingredient`
+          message: `Retrieved ${data.length} Measurement`
         });
     })
     .catch((err) => {
@@ -36,14 +36,14 @@ const getOne = (req, res, next) => {
 
 // ADD NEW RECIPE
 const addOne = (req, res, next) => {
-  db.one('INSERT INTO ingredients(name) ' +
+  db.one('INSERT INTO measurements(name) ' +
   'VALUES (${name}) RETURNING id', req.body.payload)
     .then((result) => {
       res.status(200)
         .json({
           status: 'success',
           id: parseInt(result.id),
-          message: `Inserted Ingredient id ${result.id}`
+          message: `Inserted Measurement id ${result.id}`
         });
     })
     .catch((err) => {
@@ -53,13 +53,13 @@ const addOne = (req, res, next) => {
 
 // EDIT ONE RECIPE
 const updateOne = (req, res, next) => {
-  db.none('UPDATE ingredients SET name=$1 WHERE id=$2',
+  db.none('UPDATE measurements SET name=$1 WHERE id=$2',
     [req.body.name, parseInt(req.params.id)])
     .then(() => {
       res.status(200)
         .json({
           status: 'success',
-          message: `Updated Ingredient id ${req.params.id}`
+          message: `Updated Measurement id ${req.params.id}`
         });
     })
     .catch((err) => {
@@ -70,12 +70,12 @@ const updateOne = (req, res, next) => {
 // DELETE ONE RECIPE
 const deleteOne = (req, res, next) => {
   const id = parseInt(req.params.id);
-    db.result('DELETE FROM ingredients WHERE id = $1', id)
+    db.result('DELETE FROM measurements WHERE id = $1', id)
       .then((result) => {
         res.status(200)
           .json({
             status: 'success',
-            message: `Removed ${result.rowCount} ingredient`
+            message: `Removed ${result.rowCount} Measurement`
           });
       })
       .catch((err) => {
@@ -85,12 +85,12 @@ const deleteOne = (req, res, next) => {
 
 // DELETE ALL RECIPES
 const deleteAll = (req, res, next) => {
-    db.result('DELETE FROM ingredients')
+    db.result('DELETE FROM measurements')
       .then((result) => {
         res.status(200)
           .json({
             status: 'success',
-            message: `Removed ${result.rowCount} ingredients`
+            message: `Removed ${result.rowCount} Measurements`
           });
       })
       .catch((err) => {

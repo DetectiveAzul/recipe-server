@@ -28,7 +28,7 @@ CREATE TABLE quantities(
   ingredient_quantity DECIMAL(8,2)
 );
 
-CREATE TABLE recipe_steps(
+CREATE TABLE steps(
   id SERIAL8 PRIMARY KEY,
   recipe_id INT8 REFERENCES recipes(id) ON DELETE CASCADE,
   step_number INT8,

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const queries = require('../../db/queries/recipesQueries.js')
+const queries = require('../../db/queries/quantitiesQueries.js')
 //defining variables and methods
 
 
