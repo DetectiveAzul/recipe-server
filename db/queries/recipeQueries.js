@@ -24,4 +24,7 @@ const getAllRecipes = (req, res, next) => {
 };
 
 // exporting query functions
-module.exports = db;
+// module.exports = db;
+module.exports = {
+    getAll: getAllRecipes
+}
