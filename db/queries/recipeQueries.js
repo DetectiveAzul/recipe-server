@@ -65,7 +65,7 @@ const updateOne = (req, res, next) => {
       res.status(200)
         .json({
           status: 'success',
-          message: `Updated Recipe`
+          message: `Updated Recipe id ${req.params.id}`
         });
     })
     .catch((err) => {
