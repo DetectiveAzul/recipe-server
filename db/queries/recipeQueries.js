@@ -5,10 +5,10 @@ const options = {
 };
 const config = require('../config.js');
 const pgp = require('pg-promise')(options);
-const db = pgp('postgress://localhost:5432/recipe');
+const db = pgp(config.databaseConfig);
 
 // add query functions
-function getAllRecipes(req, res, next) {
+const getAllRecipes = (req, res, next) => {
   db.any('SELECT * FROM recipes')
     .then(function (data) {
       res.status(200)
@@ -23,7 +23,5 @@ function getAllRecipes(req, res, next) {
     });
 };
 
-//exporting query functions
-module.exports = {
-  getAllRecipes: getAllRecipes
-};
+// exporting query functions
+module.exports = db;
