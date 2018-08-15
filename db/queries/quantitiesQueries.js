@@ -38,7 +38,7 @@ const getOne = (req, res, next) => {
 const addOne = (req, res, next) => {
   db.one('INSERT INTO quantities(recipe_id, ingredient_id, measurement_id, ingredient_quantity) ' +
   'VALUES (${recipe_id}, ${ingredient_id}, ${measurement_id}, ${ingredient_quantity}) '
-  + 'RETURNING id', req.body.payload)
+  + 'RETURNING id', req.body)
     .then((result) => {
       res.status(200)
         .json({
