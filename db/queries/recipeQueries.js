@@ -24,7 +24,7 @@ const getAll = (req, res, next) => {
 };
 
 // GET SINGLE RECIPE
-const get = (req, res, next) => {
+const getOne = (req, res, next) => {
   const id = parseInt(req.params.id);
   db.one('SELECT * FROM recipes WHERE id = $1', id)
     .then((data) => {
@@ -41,14 +41,15 @@ const get = (req, res, next) => {
 };
 
 // ADD NEW RECIPE
-const post = (req, res, next) => {
-  db.none('INSERT INTO recipes(name, description) ' +
-  'VALUES (${name}, ${description})', req.body.payload)
-    .then(() => {
+const addOne = (req, res, next) => {
+  db.one('INSERT INTO recipes(name, description) ' +
+  'VALUES (${name}, ${description}) RETURNING id', req.body.payload)
+    .then((result) => {
       res.status(200)
         .json({
           status: 'success',
-          message: 'Inserted one recipe'
+          id: parseInt(result.id),
+          message: `Inserted recipe id ${result.id}`
         });
     })
     .catch((err) => {
@@ -57,7 +58,7 @@ const post = (req, res, next) => {
 };
 
 // EDIT ONE RECIPE
-const put = (req, res, next) => {
+const updateOne = (req, res, next) => {
   db.none('UPDATE recipes SET name=$1, description=$2 WHERE id=$3',
     [req.body.name, req.body.description, parseInt(req.params.id)])
     .then(() => {
@@ -106,9 +107,9 @@ const deleteAll = (req, res, next) => {
 // exporting query functions
 module.exports = {
     getAll: getAll,
-    get: get,
-    post: post,
-    put: put,
+    getOne: getOne,
+    addOne: addOne,
+    updateOne: updateOne,
     deleteOne: deleteOne,
     deleteAll: deleteAll,
 }
