@@ -54,6 +54,7 @@ router.post(`${BASE_URL}`, async (ctx) => {
   try {
     const dataId = await queries.addOne(ctx.request.body);
     const data = await queries.getOne(dataId.id);
+    ctx.status = 201;
     ctx.body = {
       status: 'success',
       new_entry: data
