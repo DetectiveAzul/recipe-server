@@ -2,100 +2,37 @@
 const db = require('../databaseConnection.js');
 
 // GET ALL RECIPES
-const getAll = (req, res, next) => {
-  db.any('SELECT * FROM ingredients')
-    .then((data) => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: `Retrieved ${data.length} Ingredients`
-        });
-    })
-    .catch((err) => {
-      return next(err);
-    });
+const getAll = () => {
+  return db.any('SELECT * FROM ingredients')
 };
 
 // GET SINGLE RECIPE
-const getOne = (req, res, next) => {
-  const id = parseInt(req.params.id);
-  db.one('SELECT * FROM ingredients WHERE id = $1', id)
-    .then((data) => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: `Retrieved ${data.length} Ingredient`
-        });
-    })
-    .catch((err) => {
-      return next(err);
-    });
+const getOne = (oldId) => {
+  const id = parseInt(oldId);
+  return db.one('SELECT * FROM ingredients WHERE id = $1', id)
 };
 
 // ADD NEW RECIPE
-const addOne = (req, res, next) => {
-  db.one('INSERT INTO ingredients(name) ' +
-  'VALUES (${name}) RETURNING id', req.body)
-    .then((result) => {
-      res.status(200)
-        .json({
-          status: 'success',
-          id: parseInt(result.id),
-          message: `Inserted Ingredient id ${result.id}`
-        });
-    })
-    .catch((err) => {
-      return next(err);
-    });
+const addOne = (body) => {
+  return db.one('INSERT INTO ingredients(name) ' +
+  'VALUES (${name}) RETURNING id', body)
 };
 
 // EDIT ONE RECIPE
-const updateOne = (req, res, next) => {
-  db.none('UPDATE ingredients SET name=$1 WHERE id=$2',
-    [req.body.name, parseInt(req.params.id)])
-    .then(() => {
-      res.status(200)
-        .json({
-          status: 'success',
-          message: `Updated Ingredient id ${req.params.id}`
-        });
-    })
-    .catch((err) => {
-      return next(err);
-    });
+const updateOne = (oldId, body) => {
+  return db.one('UPDATE ingredients SET name=$1 WHERE id=$2 RETURNING id',
+    [body.name, parseInt(oldId)])
 };
 
 // DELETE ONE RECIPE
-const deleteOne = (req, res, next) => {
-  const id = parseInt(req.params.id);
-    db.result('DELETE FROM ingredients WHERE id = $1', id)
-      .then((result) => {
-        res.status(200)
-          .json({
-            status: 'success',
-            message: `Removed ${result.rowCount} ingredient`
-          });
-      })
-      .catch((err) => {
-        return next(err);
-      });
+const deleteOne = (oldId) => {
+  const id = parseInt(oldId);
+  return db.result('DELETE FROM ingredients WHERE id = $1', id)
 };
 
 // DELETE ALL RECIPES
-const deleteAll = (req, res, next) => {
-    db.result('DELETE FROM ingredients')
-      .then((result) => {
-        res.status(200)
-          .json({
-            status: 'success',
-            message: `Removed ${result.rowCount} ingredients`
-          });
-      })
-      .catch((err) => {
-        return next(err);
-      });
+const deleteAll = () => {
+  return db.result('DELETE FROM ingredients')
 };
 
 // exporting query functions

@@ -1,5 +1,6 @@
 // Connect to the database
 const db = require('../databaseConnection.js');
+
 // GET ALL RECIPES
 const getAll = () => {
   return db.any('SELECT * FROM recipes')
