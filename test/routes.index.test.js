@@ -20,7 +20,7 @@ describe('routes : index', () => {
           res.body.status.should.equal('success');
           res.body.message.should.eql('hello, world!');
           done();
-        });2
+        });
     });
   });
 });
