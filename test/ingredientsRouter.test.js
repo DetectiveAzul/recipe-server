@@ -135,7 +135,7 @@ describe('routes : ingredients', () => {
   describe('PUT /api/ingredients', () => {
     it('should return the ingredient that was updated', (done) => {
         chai.request(server)
-        .put(`/api/ingredients/1`)
+        .put(`/api/ingredients/2`)
         .send({
           name: 'Greok'
         })
@@ -156,7 +156,7 @@ describe('routes : ingredients', () => {
           );
           // ensure the ingredient was in fact updated
           const newIngredient = res.body["updated_entry"];
-          newIngredient.name.should.not.eql('Lasagna');
+          newIngredient.name.should.not.eql('Egg');
           done();
         });
       });
@@ -189,7 +189,7 @@ describe('routes : ingredients', () => {
 
     it('should delete if the ingredient exists', (done) => {
       chai.request(server)
-        .delete(`/api/ingredients/1`)
+        .delete(`/api/ingredients/2`)
         .end((err, res) => {
         // there should be no errors
           should.not.exist(err);
