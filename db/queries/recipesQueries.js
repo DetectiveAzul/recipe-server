@@ -4,8 +4,16 @@ const db = require('../databaseConnection.js');
 const getAll = (req, res, next) => {
   db.any('SELECT * FROM recipes')
     .then((data) => {
-      console.log('DATA:', data);
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: `Retrieved ${data.length} recipes`
+        });
     })
+    .catch((err) => {
+      return next(err);
+    });
 };
 
 // GET SINGLE RECIPE
