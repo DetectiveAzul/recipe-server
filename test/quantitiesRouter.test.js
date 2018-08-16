@@ -7,12 +7,12 @@ chai.use(chaiHttp);
 
 const server = require('../server.js');
 
-describe('routes : measurements', () => {
+describe('routes : quantities', () => {
 
-  describe('GET /api/measurements', () => {
-    it('should return all measurements', (done) => {
+  describe('GET /api/quantities', () => {
+    it('should return all quantities', (done) => {
       chai.request(server)
-      .get('/api/measurements')
+      .get('/api/quantities')
       .end((err, res) => {
         // there should be no errors
         should.not.exist(err);
@@ -24,22 +24,22 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
         // the JSON response body should have a
-        // key-value pair of {"data": [1 measurement objects]}
-        res.body.data.length.should.eql(2);
+        // key-value pair of {"data": [1 quantity objects]}
+        res.body.data.length.should.eql(1);
         // the first object in the data array should
         // have the right keys
         res.body.data[0].should.include.keys(
-          'id', 'name'
+          'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
         );
         done();
       });
     });
   });
 
-  describe('GET /api/measurements/:id', () => {
-    it('should respond with a single measurement', (done) => {
+  describe('GET /api/quantities/:id', () => {
+    it('should respond with a single quantity', (done) => {
       chai.request(server)
-      .get('/api/measurements/1')
+      .get('/api/quantities/1')
       .end((err, res) => {
         // there should be no errors
         should.not.exist(err);
@@ -51,17 +51,17 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
         // the JSON response body should have a
-        // key-value pair of {"data": 1 measurement object}
+        // key-value pair of {"data": 1 quantity object}
         res.body.data.should.include.keys(
-          'id', 'name'
+          'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
         );
         done();
       });
     });
 
-    it('should throw an error if the measurement does not exist', (done) => {
+    it('should throw an error if the quantity does not exist', (done) => {
       chai.request(server)
-      .get('/api/measurements/9999999')
+      .get('/api/quantities/9999999')
       .end((err, res) => {
         // there should an error
         should.exist(err);
@@ -80,12 +80,15 @@ describe('routes : measurements', () => {
     });
   });
 
-  describe('POST /api/measurements', () => {
-    it('should return the measurements that was added', (done) => {
+  describe('POST /api/quantities', () => {
+    it('should return the quantities that was added', (done) => {
       chai.request(server)
-      .post('/api/measurements')
+      .post('/api/quantities')
       .send({
-        name: 'lb'
+        recipeId: 1,
+        ingredientId: 1,
+        measurementId: 1,
+        ingredientQuantity: 20.00
       })
       .end((err, res) => {
         // there should be no errors
@@ -99,9 +102,9 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
         // the JSON response body should have a
-        // key-value pair of {"data": 1 measurement object}
+        // key-value pair of {"data": 1 quantity object}
         res.body["new_entry"].should.include.keys(
-          'id', 'name'
+          'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
         );
         done();
       });
@@ -109,7 +112,7 @@ describe('routes : measurements', () => {
 
     it('should throw an error if payload is malformed', (done) => {
       chai.request(server)
-      .post('/api/measurements')
+      .post('/api/quantities')
       .send({
         description: 'Pollo raro'
       })
@@ -125,19 +128,19 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "error"}
         res.body.status.should.eql('error');
         // the JSON response body should have a message key
-        // key-value pair of {"data": 1 measurement object}
+        // key-value pair of {"data": 1 quantity object}
         should.exist(res.body.message);
         done();
       });
     });
   });
 
-  describe('PUT /api/measurements', () => {
-    it('should return the measurement that was updated', (done) => {
+  describe('PUT /api/quantities', () => {
+    it('should return the quantity that was updated', (done) => {
         chai.request(server)
-        .put(`/api/measurements/2`)
+        .put(`/api/quantities/2`)
         .send({
-          name: 'Greok'
+          ingredientQuantity: 5.00
         })
         .end((err, res) => {
           // there should be no errors
@@ -150,20 +153,20 @@ describe('routes : measurements', () => {
           // key-value pair of {"status": "success"}
           res.body.status.should.eql('success');
           // the JSON response body should have a
-          // key-value pair of {"data": 1 measurement object}
+          // key-value pair of {"data": 1 quantity object}
           res.body["updated_entry"].should.include.keys(
-            'id', 'name'
+            'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
           );
-          // ensure the measurement was in fact updated
-          const newMeasurement = res.body["updated_entry"];
-          newMeasurement.name.should.not.eql('lb');
+          // ensure the quantity was in fact updated
+          const newQuantity = res.body["updated_entry"];
+          newQuantity.ingredientquantity.should.not.eql(20.00);
           done();
         });
       });
 
-    it('should throw an error if measurement does not exist', (done) => {
+    it('should throw an error if quantity does not exist', (done) => {
         chai.request(server)
-        .put(`/api/measurements/99999999`)
+        .put(`/api/quantities/99999999`)
         .send({
           name: 'Greok'
         })
@@ -185,11 +188,11 @@ describe('routes : measurements', () => {
       });
     });
 
-  describe('DELETE /api/measurements/:id', () => {
+  describe('DELETE /api/quantities/:id', () => {
 
-    it('should delete if the measurement exists', (done) => {
+    it('should delete if the quantity exists', (done) => {
       chai.request(server)
-        .delete(`/api/measurements/3`)
+        .delete(`/api/quantities/2`)
         .end((err, res) => {
         // there should be no errors
           should.not.exist(err);
@@ -206,9 +209,9 @@ describe('routes : measurements', () => {
 
 
 
-    it('should throw an error if the measurement does not exist', (done) => {
+    it('should throw an error if the quantity does not exist', (done) => {
       chai.request(server)
-      .delete('/api/measurements/9999999')
+      .delete('/api/quantities/9999999')
       .end((err, res) => {
       // there should be an error
         should.exist(err);

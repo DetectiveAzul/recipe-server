@@ -156,7 +156,7 @@ describe('routes : ingredients', () => {
           );
           // ensure the ingredient was in fact updated
           const newIngredient = res.body["updated_entry"];
-          newIngredient.name.should.not.eql('Egg');
+          newIngredient.name.should.not.eql('Pollo raro');
           done();
         });
       });

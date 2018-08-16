@@ -158,7 +158,7 @@ describe('routes : recipes', () => {
           );
           // ensure the recipe was in fact updated
           const newRecipe = res.body["updated_entry"];
-          newRecipe.name.should.not.eql('Lasagna');
+          newRecipe.name.should.not.eql('Pollo raro');
           done();
         });
       });
