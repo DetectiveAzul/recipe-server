@@ -1,17 +1,47 @@
-const express = require('express');
-const router = express.Router();
+const Router = require('koa-router');
+const router = new Router();
 const queries = require('../../db/queries/ingredientsQueries.js')
 //defining variables and methods
+//INDEX
+router.get(`${BASE_URL}`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
+//SHOW
+router.get(`${BASE_URL}/:id`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
-router.get('/', queries.getAll);
-router.get('/:id', queries.getOne);
+//CREATE
+router.post(`${BASE_URL}`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
-router.post('/', queries.addOne);
+//UPDATE
+router.put(`${BASE_URL}/:id`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
-router.put('/:id', queries.updateOne);
+//DESTROY ALL
+router.delete(`${BASE_URL}/`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
-router.delete('/', queries.deleteAll);
-router.delete('/:id', queries.deleteOne);
+//DESTROY ONE
+router.delete(`${BASE_URL}/:id`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
 module.exports = router;

@@ -8,12 +8,12 @@ const recipesRouter = require('./dbRouters/recipesRouter.js');
 // const quantitiesRouter = require('./dbRouters/quantitiesRouter.js');
 // const stepsRouter = require('./dbRouters/stepsRouter.js');
 
-// router.get('/', async (ctx) => {
-//   ctx.body = {
-//     status: 'success',
-//     message: 'hello, world!'
-//   };
-// });
+router.get('/', async (ctx) => {
+  ctx.body = {
+    status: 'success',
+    message: 'hello, world!'
+  };
+});
 
 router.use(recipesRouter.routes());
 // router.use(ingredientsRouter.routes());

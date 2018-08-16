@@ -5,35 +5,46 @@ const queries = require('../../db/queries/recipesQueries.js');
 
 const BASE_URL = `/api/recipes`;
 
-router.get(BASE_URL, async (ctx) => {
-  try {
-    const recipes = await queries.getAll;
-    ctx.body = {
-      status: 'success',
-    };
-    console.log(recipes);
-  } catch (err) {
-    console.log(err)
-  }
-})
+//INDEX
+router.get(`${BASE_URL}`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
+
+//SHOW
+router.get(`${BASE_URL}/:id`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
+
+//CREATE
+router.post(`${BASE_URL}`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
+
+//UPDATE
+router.put(`${BASE_URL}/:id`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
+
+//DESTROY ALL
+router.delete(`${BASE_URL}/`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
+
+//DESTROY ONE
+router.delete(`${BASE_URL}/:id`, async (ctx) => {
+  ctx.body = {
+    status: 'success',
+  };
+});
 
 module.exports = router;
-
-
-// const express = require('express');
-// const router = express.Router();
-// const queries = require('../../db/queries/recipesQueries.js')
-// //defining variables and methods
-//
-//
-// router.get('/', queries.getAll);
-// router.get('/:id', queries.getOne);
-//
-// router.post('/', queries.addOne);
-//
-// router.put('/:id', queries.updateOne);
-//
-// router.delete('/', queries.deleteAll);
-// router.delete('/:id', queries.deleteOne);
-//
-// module.exports = router;
