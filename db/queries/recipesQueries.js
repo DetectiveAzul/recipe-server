@@ -18,14 +18,14 @@ const addOne = (body) => {
 };
 
 // EDIT ONE RECIPE
-const updateOne = (oldId) => {
+const updateOne = (oldId, body) => {
   return db.one('UPDATE recipes SET name=$1, description=$2 WHERE id=$3 RETURNING id',
-    [req.body.name, req.body.description, parseInt(oldId)])
+    [body.name, body.description, parseInt(oldId)])
 };
 
 // DELETE ONE RECIPE
 const deleteOne = (oldId) => {
-  const id = parseInt(req.params.oldId);
+  const id = parseInt(oldId);
   return db.result('DELETE FROM recipes WHERE id = $1', id)
 };
 
