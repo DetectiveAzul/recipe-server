@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "mocha ./test",
     "dev": "nodemon server.js"
   },
   "repository": {
@@ -19,13 +19,16 @@
   },
   "homepage": "https://github.com/DetectiveAzul/recipe-server#readme",
   "devDependencies": {
+    "chai-http": "^3.0.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
+    "chai": "^4.1.2",
     "express": "^4.16.3",
     "koa": "^2.5.2",
+    "koa-router": "^7.4.0",
     "pg": "^7.4.3",
     "pg-promise": "^8.4.5"
   }
