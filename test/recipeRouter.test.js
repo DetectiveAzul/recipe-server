@@ -10,9 +10,9 @@ const server = require('../server.js');
 describe('routes : recipes', () => {
 
   describe('GET /api/recipes', () => {
-    it('should return all movies', (done) => {
+    it('should return all recipes', (done) => {
       chai.request(server)
-      .get('/api/movies')
+      .get('/api/recipes')
       .end((err, res) => {
         // there should be no errors
         should.not.exist(err);
@@ -29,7 +29,7 @@ describe('routes : recipes', () => {
         // the first object in the data array should
         // have the right keys
         res.body.data[0].should.include.keys(
-          'id', 'name', 'genre', 'rating', 'explicit'
+          'name', 'description'
         );
         done();
       });
