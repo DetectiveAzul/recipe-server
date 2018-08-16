@@ -2,6 +2,9 @@ const Router = require('koa-router');
 const router = new Router();
 const queries = require('../../db/queries/quantitiesQueries.js')
 
+const BASE_URL = `/api/quantities`;
+
+
 //INDEX
 router.get(`${BASE_URL}`, async (ctx) => {
   ctx.body = {
