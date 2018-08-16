@@ -2,7 +2,6 @@ const Router = require('koa-router');
 const router = new Router();
 //queries
 const queries = require('../../db/queries/recipesQueries.js');
-const db = require('../../db/databaseConnection.js');
 
 const BASE_URL = `/api/recipes`;
 
