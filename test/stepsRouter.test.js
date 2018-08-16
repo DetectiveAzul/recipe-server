@@ -7,12 +7,12 @@ chai.use(chaiHttp);
 
 const server = require('../server.js');
 
-describe('routes : measurements', () => {
+describe('routes : steps', () => {
 
-  describe('GET /api/measurements', () => {
-    it('should return all measurements', (done) => {
+  describe('GET /api/steps', () => {
+    it('should return all steps', (done) => {
       chai.request(server)
-      .get('/api/measurements')
+      .get('/api/steps')
       .end((err, res) => {
         // there should be no errors
         should.not.exist(err);
@@ -24,22 +24,22 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
         // the JSON response body should have a
-        // key-value pair of {"data": [1 measurement objects]}
-        res.body.data.length.should.eql(2);
+        // key-value pair of {"data": [1 steps objects]}
+        res.body.data.length.should.eql(1);
         // the first object in the data array should
         // have the right keys
         res.body.data[0].should.include.keys(
-          'id', 'name'
+          'id', 'recipeid', 'stepnumber', 'stepdescription'
         );
         done();
       });
     });
   });
 
-  describe('GET /api/measurements/:id', () => {
-    it('should respond with a single measurement', (done) => {
+  describe('GET /api/steps/:id', () => {
+    it('should respond with a single step', (done) => {
       chai.request(server)
-      .get('/api/measurements/1')
+      .get('/api/steps/1')
       .end((err, res) => {
         // there should be no errors
         should.not.exist(err);
@@ -51,17 +51,17 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
         // the JSON response body should have a
-        // key-value pair of {"data": 1 measurement object}
+        // key-value pair of {"data": 1 step object}
         res.body.data.should.include.keys(
-          'id', 'name'
+          'id', 'recipeid', 'stepnumber', 'stepdescription'
         );
         done();
       });
     });
 
-    it('should throw an error if the measurement does not exist', (done) => {
+    it('should throw an error if the step does not exist', (done) => {
       chai.request(server)
-      .get('/api/measurements/9999999')
+      .get('/api/steps/9999999')
       .end((err, res) => {
         // there should an error
         should.exist(err);
@@ -80,12 +80,14 @@ describe('routes : measurements', () => {
     });
   });
 
-  describe('POST /api/measurements', () => {
-    it('should return the measurements that was added', (done) => {
+  describe('POST /api/steps', () => {
+    it('should return the steps that was added', (done) => {
       chai.request(server)
-      .post('/api/measurements')
+      .post('/api/steps')
       .send({
-        name: 'lb'
+        recipeId: 1,
+        stepNumber: 1,
+        stepDescription: 'Hola'
       })
       .end((err, res) => {
         // there should be no errors
@@ -99,9 +101,9 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
         // the JSON response body should have a
-        // key-value pair of {"data": 1 measurement object}
+        // key-value pair of {"data": 1 step object}
         res.body["new_entry"].should.include.keys(
-          'id', 'name'
+          'id', 'recipeid', 'stepnumber', 'stepdescription'
         );
         done();
       });
@@ -109,7 +111,7 @@ describe('routes : measurements', () => {
 
     it('should throw an error if payload is malformed', (done) => {
       chai.request(server)
-      .post('/api/measurements')
+      .post('/api/steps')
       .send({
         description: 'Pollo raro'
       })
@@ -125,19 +127,21 @@ describe('routes : measurements', () => {
         // key-value pair of {"status": "error"}
         res.body.status.should.eql('error');
         // the JSON response body should have a message key
-        // key-value pair of {"data": 1 measurement object}
+        // key-value pair of {"data": 1 step object}
         should.exist(res.body.message);
         done();
       });
     });
   });
 
-  describe('PUT /api/measurements', () => {
-    it('should return the measurement that was updated', (done) => {
+  describe('PUT /api/steps', () => {
+    it('should return the step that was updated', (done) => {
         chai.request(server)
-        .put(`/api/measurements/2`)
+        .put(`/api/steps/2`)
         .send({
-          name: 'Greok'
+          recipeId: 1,
+          stepNumber: 2,
+          stepDescription: 'Pedro'
         })
         .end((err, res) => {
           // there should be no errors
@@ -150,20 +154,20 @@ describe('routes : measurements', () => {
           // key-value pair of {"status": "success"}
           res.body.status.should.eql('success');
           // the JSON response body should have a
-          // key-value pair of {"data": 1 measurement object}
+          // key-value pair of {"data": 1 step object}
           res.body["updated_entry"].should.include.keys(
-            'id', 'name'
+            'id', 'recipeid', 'stepnumber', 'stepdescription'
           );
-          // ensure the measurement was in fact updated
-          const newMeasurement = res.body["updated_entry"];
-          newMeasurement.name.should.not.eql('units');
+          // ensure the step was in fact updated
+          const newStep = res.body["updated_entry"];
+          newStep.stepnumber.should.not.eql(1);
           done();
         });
       });
 
-    it('should throw an error if measurement does not exist', (done) => {
+    it('should throw an error if step does not exist', (done) => {
         chai.request(server)
-        .put(`/api/measurements/99999999`)
+        .put(`/api/steps/99999999`)
         .send({
           name: 'Greok'
         })
@@ -185,11 +189,11 @@ describe('routes : measurements', () => {
       });
     });
 
-  describe('DELETE /api/measurements/:id', () => {
+  describe('DELETE /api/steps/:id', () => {
 
-    it('should delete if the measurement exists', (done) => {
+    it('should delete if the step exists', (done) => {
       chai.request(server)
-        .delete(`/api/measurements/2`)
+        .delete(`/api/steps/2`)
         .end((err, res) => {
         // there should be no errors
           should.not.exist(err);
@@ -206,9 +210,9 @@ describe('routes : measurements', () => {
 
 
 
-    it('should throw an error if the measurement does not exist', (done) => {
+    it('should throw an error if the step does not exist', (done) => {
       chai.request(server)
-      .delete('/api/measurements/9999999')
+      .delete('/api/steps/9999999')
       .end((err, res) => {
       // there should be an error
         should.exist(err);
