@@ -1,15 +1,11 @@
 console.log('It works!');
 const Koa = require('koa');
+const indexRoutes = require('./router/index.js');
 
 const app = new Koa();
 const PORT = 1337;
 
-app.use(async (ctx) => {
-  ctx.body = {
-    status: 'success',
-    message: 'hello, world!'
-  };
-});
+app.use(indexRouted.routes());
 
 const server = app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
