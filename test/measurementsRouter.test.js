@@ -135,7 +135,7 @@ describe('routes : measurements', () => {
   describe('PUT /api/measurements', () => {
     it('should return the measurement that was updated', (done) => {
         chai.request(server)
-        .put(`/api/measurements/2`)
+        .put(`/api/measurements/3`)
         .send({
           name: 'Greok'
         })
