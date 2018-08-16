@@ -5,7 +5,7 @@ const indexRoutes = require('./router/index.js');
 const app = new Koa();
 const PORT = 1337;
 
-app.use(indexRouted.routes());
+app.use(indexRoutes.routes());
 
 const server = app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
