@@ -123,7 +123,7 @@ router.delete(`${BASE_URL}/:id`, async (ctx) => {
     } else {
       ctx.status = 404;
       ctx.body = {
-        status: 'success',
+        status: 'error',
         message: `No entry was found`
       };
     }
