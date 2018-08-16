@@ -211,7 +211,7 @@ describe('routes : recipes', () => {
       chai.request(server)
       .delete('/api/recipes/9999999')
       .end((err, res) => {
-      // there should not be an error
+      // there should be an error
         should.exist(err);
         // there should be a 404 status code
         res.status.should.equal(404);
@@ -221,7 +221,7 @@ describe('routes : recipes', () => {
         // key-value pair of {"status": "error"}
         res.body.status.should.eql('error');
         // the JSON response body should have a
-        // key-value pair of {"message": "That movie does not exist."}
+        // key-value pair of {"message": "No entry was found"}
         res.body.message.should.eql('No entry was found');
         done();
       });
