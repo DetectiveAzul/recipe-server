@@ -1,0 +1,7 @@
+#!/bin/sh
+
+dropdb recipe
+createdb recipe
+psql -d recipe -f db/tables.sql
+psql -d recipe -f db/seed.sql
+npm test
