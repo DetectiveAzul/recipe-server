@@ -18,7 +18,7 @@ router.use(recipesRouter.routes());
 router.use(ingredientsRouter.routes());
 router.use(measurementsRouter.routes());
 router.use(quantitiesRouter.routes());
-recipes.use(stepsRouter.routes());
+router.use(stepsRouter.routes());
 
 
 module.exports = router;
