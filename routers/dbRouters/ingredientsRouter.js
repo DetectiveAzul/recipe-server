@@ -3,7 +3,7 @@ const router = new Router();
 //queries
 const queries = require('../../db/queries/ingredientsQueries.js');
 
-const BASE_URL = `/api/ingredientsQueries`;
+const BASE_URL = `/api/ingredients`;
 
 
 //INDEX
