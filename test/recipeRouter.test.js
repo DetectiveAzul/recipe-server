@@ -107,6 +107,31 @@ describe('routes : recipes', () => {
         done();
       });
     });
+
+    it('should throw an error if payload is malformed', (done) => {
+      chai.request(server)
+      .post('/api/recipes')
+      .send({
+        name: 'Pollo raro'
+      })
+      .end((err, res) => {
+        // there should be no errors
+        should.exist(err);
+        // there should be a 400 status code
+        // (indicating that something gone wrong)
+        res.status.should.equal(400);
+        // the response should be JSON
+        res.type.should.equal('application/json');
+        // the JSON response body should have a
+        // key-value pair of {"status": "error"}
+        res.body.status.should.eql('error');
+        // the JSON response body should have a message key
+        // key-value pair of {"data": 1 movie object}
+        should.exist(res.body.message);
+        done();
+      });
+    });
+
   });
 
 });
