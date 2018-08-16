@@ -88,10 +88,18 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
 //DESTROY ALL
 router.delete(`${BASE_URL}/`, async (ctx) => {
   try {
-    const deleteData = await queries.deleteAll();
-    ctx.body = {
-      status: 'success',
-      message: `${deleteData.rowCount} entries has been deleted`
+    const data = await queries.deleteAll();
+    if (data.rowCount) {
+      ctx.body = {
+        status: 'success',
+        message: `${data.rowCount} entries has been deleted`
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'No entry was found'
+      }
     }
   } catch (err) {
     ctx.status = 400;
@@ -106,9 +114,17 @@ router.delete(`${BASE_URL}/`, async (ctx) => {
 router.delete(`${BASE_URL}/:id`, async (ctx) => {
   try {
     const data = await queries.deleteOne(ctx.params.id);
-    ctx.body = {
-      status: 'success',
-      message: `Entry id ${ctx.params.id} has been deleted`
+    if (data.rowCount) {
+      ctx.body = {
+        status: 'success',
+        message: `Entry id ${ctx.params.id} has been deleted`
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'success',
+        message: `No entry was found`
+      };
     }
   } catch (err) {
     ctx.status = 400;
