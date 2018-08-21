@@ -6,6 +6,7 @@ const getAll = () => {
   return db.any('SELECT * FROM recipes');
 };
 
+//Advanced Getters
 const getAllStepsFromRecipe = (recipeId) => {
   const id = recipeId;
   return db.any('SELECT * FROM steps WHERE recipeid = $1 ORDER BY stepnumber', id)
@@ -21,7 +22,15 @@ const getAllIngredientsFromRecipe = (recipeId) => {
 
 const getAllQuantitiesFromRecipe = (recipeId) => {
   const id = recipeId;
-  return db.any('SELECT quantities.* FROM quantities ' +
+  return db.any('SELECT quantities.id, quantities.ingredientquantity FROM quantities ' +
+  'WHERE quantities.recipeid = $1', id);
+};
+
+const getAllMeasurementsFromRecipe = (recipeId) => {
+  const id = recipeId;
+  return db.any('SELECT measurements.* FROM measurements ' +
+  'INNER JOIN quantities ' +
+  'ON quantities.measurementid = measurements.id ' +
   'WHERE quantities.recipeid = $1', id);
 };
 
@@ -61,6 +70,7 @@ module.exports = {
     getAllSteps: getAllStepsFromRecipe,
     getAllIngredients: getAllIngredientsFromRecipe,
     getAllQuantities: getAllQuantitiesFromRecipe,
+    getAllMeasurements: getAllMeasurementsFromRecipe,
     getOne: getOne,
     addOne: addOne,
     updateOne: updateOne,
