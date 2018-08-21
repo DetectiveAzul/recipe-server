@@ -11,6 +11,21 @@ const getAllStepsFromRecipe = (recipeId) => {
   return db.any('SELECT * FROM steps WHERE recipeid = $1 ORDER BY stepnumber', id)
 };
 
+const getAllIngredientsFromRecipe = (recipeId) => {
+  const id = recipeId;
+  return db.any('SELECT ingredients.* FROM ingredients ' +
+  'INNER JOIN quantities ' +
+  'ON quantities.ingredientid = ingredients.id ' +
+  'WHERE quantities.recipeid = $1', id);
+};
+
+const getAllQuantitiesFromRecipe = (recipeId) => {
+  const id = recipeId;
+  return db.any('SELECT quantities.* FROM quantities ' +
+  'WHERE quantities.recipeid = $1', id);
+};
+
+
 // GET SINGLE RECIPE
 const getOne = (oldId) => {
   const id = parseInt(oldId);
@@ -44,6 +59,8 @@ const deleteAll = () => {
 module.exports = {
     getAll: getAll,
     getAllSteps: getAllStepsFromRecipe,
+    getAllIngredients: getAllIngredientsFromRecipe,
+    getAllQuantities: getAllQuantitiesFromRecipe,
     getOne: getOne,
     addOne: addOne,
     updateOne: updateOne,

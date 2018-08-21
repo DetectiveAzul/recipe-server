@@ -36,9 +36,13 @@ router.get(`${BASE_URL}`, async (ctx) => {
 router.get(`${BASE_URL}/:id`, async (ctx) => {
   try {
     const data = await queries.getOne(ctx.params.id);
+    const ingredients = await queries.getAllIngredients(ctx.params.id);
+    const quantities = await queries.getAllQuantities(ctx.params.id);
     const steps = await queries.getAllSteps(ctx.params.id);
     const recipe = {
       info: data,
+      ingredients: ingredients,
+      quantities: quantities,
       steps: steps
     };
     ctx.body = {
