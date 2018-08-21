@@ -72,7 +72,7 @@ router.get(`${BASE_URL}/status`, async (ctx) => {
 });
 
 //LOG USER OUT
-router.get(`${BASE_URL}/login`, async (ctx) => {
+router.get(`${BASE_URL}/logout`, async (ctx) => {
   try {
 
   } catch (err) {
