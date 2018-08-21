@@ -1,5 +1,8 @@
 const Router = require('koa-router');
 const router = new Router();
+//File system
+const fs = require('fs');
+const passport = require('koa-passport');
 //queries
 const queries = require('../../db/queries/ingredientsQueries.js');
 
@@ -14,6 +17,7 @@ router.get(`${BASE_URL}/register`, async (ctx) => {
 
 //REGISTER USER
 router.post(`${BASE_URL}/register`, async (ctx) => {
+  ctx.body = 'Moved to post page'
 });
 
 //LOGIN VIEW
