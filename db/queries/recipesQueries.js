@@ -6,6 +6,11 @@ const getAll = () => {
   return db.any('SELECT * FROM recipes');
 };
 
+const getAllStepsFromRecipe = (recipeId) => {
+  const id = recipeId;
+  return db.any('SELECT * FROM steps WHERE recipeid = $1 ORDER BY stepnumber', id)
+};
+
 // GET SINGLE RECIPE
 const getOne = (oldId) => {
   const id = parseInt(oldId);
@@ -38,9 +43,10 @@ const deleteAll = () => {
 // exporting query functions
 module.exports = {
     getAll: getAll,
+    getAllSteps: getAllStepsFromRecipe,
     getOne: getOne,
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    deleteAll: deleteAll,
+    deleteAll: deleteAll
 }

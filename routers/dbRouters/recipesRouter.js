@@ -36,9 +36,14 @@ router.get(`${BASE_URL}`, async (ctx) => {
 router.get(`${BASE_URL}/:id`, async (ctx) => {
   try {
     const data = await queries.getOne(ctx.params.id);
+    const steps = await queries.getAllSteps(ctx.params.id);
+    const recipe = {
+      info: data,
+      steps: steps
+    };
     ctx.body = {
       status: 'success',
-      data: data
+      data: recipe
     };
   } catch (err) {
     ctx.status = 400;
