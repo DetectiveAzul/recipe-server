@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS steps;
+DROP TABLE IF EXISTS quantities;
+DROP TABLE IF EXISTS measurements;
+DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS recipes; 
+
 CREATE TABLE recipes(
   id SERIAL8 PRIMARY KEY,
   name VARCHAR(255),
