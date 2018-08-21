@@ -6,6 +6,8 @@ const ingredientsRouter = require('./dbRouters/ingredientsRouter.js');
 const measurementsRouter = require('./dbRouters/measurementsRouter.js');
 const quantitiesRouter = require('./dbRouters/quantitiesRouter.js');
 const stepsRouter = require('./dbRouters/stepsRouter.js');
+//Auth routers
+const usersRouter = require('./authRouters/usersRouter.js');
 
 router.get('/', async (ctx) => {
   ctx.body = {
@@ -19,6 +21,7 @@ router.use(ingredientsRouter.routes());
 router.use(measurementsRouter.routes());
 router.use(quantitiesRouter.routes());
 router.use(stepsRouter.routes());
-
+//Auth routers
+router.use(usersRouter.routes());
 
 module.exports = router;
