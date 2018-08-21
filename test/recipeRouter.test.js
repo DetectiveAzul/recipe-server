@@ -53,7 +53,7 @@ describe('routes : recipes', () => {
         // the JSON response body should have a
         // key-value pair of {"data": 1 recipe object}
         res.body.data.should.include.keys(
-          'id', 'name', 'description'
+          'info', 'steps'
         );
         done();
       });
