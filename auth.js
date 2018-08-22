@@ -15,7 +15,7 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(new LocalStrategy(options, (username, password, done) => {
-  db.one('SELECT * FROM users WHERE user = $1', username)
+  db.one('SELECT * FROM users WHERE username = $1', username)
     .then((user) => {
       if (!user) return done(null, false);
       if (password === user.password) {

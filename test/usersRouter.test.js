@@ -24,9 +24,24 @@ describe('GET /auth/register', () => {
     });
   });
 
+});
 
 
+describe('POST /auth/register', () => {
 
 
+  it('should register a new user', (done) => {
+    chai.request(server)
+    .post('/auth/register')
+    .send({
+      username: 'michael',
+      password: 'herman'
+    })
+    .end((err, res) => {
+      should.not.exist(err);
+      res.redirects[0].should.contain('/auth/status');
+      done();
+    });
+  });
 
 });

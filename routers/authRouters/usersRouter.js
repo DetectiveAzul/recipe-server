@@ -4,7 +4,7 @@ const router = new Router();
 const fs = require('fs');
 const passport = require('koa-passport');
 //queries
-const queries = require('../../db/queries/ingredientsQueries.js');
+const queries = require('../../db/queries/usersQueries.js');
 
 const BASE_URL = `/auth`;
 
@@ -17,7 +17,17 @@ router.get(`${BASE_URL}/register`, async (ctx) => {
 
 //REGISTER USER
 router.post(`${BASE_URL}/register`, async (ctx) => {
-  ctx.body = 'Moved to post page'
+  const user = await queries.addUser(ctx.request.body);
+  return passport.authenticate('local', (err, user, info, status) => {
+    if (user) {
+      ctx.status = 201;
+      ctx.login(user);
+      ctx.redirect('/auth/status');
+    } else {
+      ctx.status = 400;
+      ctx.body = { status: 'error' };
+    }
+  })(ctx);
 });
 
 //LOGIN VIEW
@@ -30,6 +40,7 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
 
 //STATUS PAGE
 router.get(`${BASE_URL}/status`, async (ctx) => {
+  ctx.body = 'auth/status'
 });
 
 //LOG USER OUT
