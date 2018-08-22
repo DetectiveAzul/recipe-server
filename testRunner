@@ -4,4 +4,6 @@ dropdb recipe
 createdb recipe
 psql -d recipe -f db/tables.sql
 psql -d recipe -f db/seed.sql
+psql -d recipe -f db/user_table.sql
+
 npm test

@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE recipes(
+  id SERIAL8 PRIMARY KEY,
+  user VARCHAR(255),
+  password VARCHAR(255)
+);
