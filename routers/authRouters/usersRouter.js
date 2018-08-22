@@ -40,7 +40,12 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
 
 //STATUS PAGE
 router.get(`${BASE_URL}/status`, async (ctx) => {
-  ctx.body = 'auth/status'
+  if (ctx.isAuthenticated()) {
+  ctx.type = 'html';
+  ctx.body = fs.createReadStream('./views/status.html');
+} else {
+  ctx.redirect('/auth/login');
+}
 });
 
 //LOG USER OUT
