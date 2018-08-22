@@ -5,7 +5,6 @@ const queries = require('../../db/queries/recipesQueries.js');
 
 const BASE_URL = `/api/recipes`;
 
-
 //INDEX
 router.get(`${BASE_URL}`, async (ctx) => {
   try {
