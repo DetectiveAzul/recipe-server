@@ -20,6 +20,7 @@ app.keys = ['test-key'];
 app.use(session(app));
 
 //Auth
+require('./auth');
 app.use(passport.initialize());
 app.use(passport.session());
 
