@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser');
 const cors = require('@koa/cors');
 const session = require('koa-session');
 const passport = require('koa-passport');
+const RedisStore = require('koa-redis');
 //Routers
 const indexRouter = require('./routers/indexRouter.js');
 
@@ -17,7 +18,9 @@ app.use(bodyParser());
 
 //Sessions
 app.keys = ['test-key'];
-app.use(session(app));
+app.use(session({
+  store: new RedisStore()
+}, app));
 
 //Auth
 require('./auth');
