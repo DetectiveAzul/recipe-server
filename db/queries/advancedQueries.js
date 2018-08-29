@@ -20,9 +20,9 @@ const addFullRecipe = (recipe) => {
 
   quantities.forEach((quantity, index) => {
     const newQuantity = {
-      recipeId: recipeId,
-      ingredientId: ingredientsIDs[index],
-      measurementId: measurementIDs[index],
+      recipeId: recipeId.id,
+      ingredientId: ingredientsIDs[index].id,
+      measurementId: measurementIDs[index].id,
       ingredientQuantity: quantity
     };
     quantitiesQueries.addOne(newQuantity);
@@ -30,7 +30,7 @@ const addFullRecipe = (recipe) => {
 
   recipe.steps.forEach((step) => {
     const newStep = {
-      recipeId: recipeId,
+      recipeId: recipeId.id,
       stepNumber: step.stepNumber,
       stepDescription: step.stepDescription
     };

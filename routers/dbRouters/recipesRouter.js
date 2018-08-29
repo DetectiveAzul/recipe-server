@@ -2,6 +2,7 @@ const Router = require('koa-router');
 const router = new Router();
 //queries
 const queries = require('../../db/queries/recipesQueries.js');
+const advancedQueries = require('../../db/queries/advancedQueries.js');
 
 const BASE_URL = `/api/recipes`;
 
@@ -75,6 +76,24 @@ router.post(`${BASE_URL}`, async (ctx) => {
     ctx.body = {
       status: 'error',
       message: err.message || 'Sorry, an error has occurred.'
+    };
+  }
+});
+
+router.post('/api/recipes/test', async (ctx) => {
+  try {
+    const dataId = await queries.addOne(ctx.request.body);
+    const data = await queries.getOne(dataId.id);
+    ctx.status = 201;
+    ctx.body = {
+      status: 'success',
+      new_entry: data
+    };
+  } catch (err) {
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has ocurred.'
     };
   }
 });
