@@ -1,33 +1,29 @@
 const recipesQueries = require('./recipesQueries.js');
 const ingredientsQueries = require('./ingredientsQueries.js');
 const measurementsQueries = require('./measurementsqueries.js');
-const quantitiesQueries = require('./quantitiesqueries.js');
+const quantitiesQueries = require('./quantitiesQueries.js');
 const stepsQueries = require('./stepsQueries.js');
 
 //ADVANCED QUERY
 const addFullRecipe = async (recipe) => {
+  //Add the recipe info
   const recipeId = await recipesQueries.addOne(recipe.info);
 
-  const ingredientsIDs = []
-  const measurementsIDs = []
-  const quantities = []
+  //Split the ingredient key and add them to their specifics psql tables
+  recipe.ingredients.forEach(async (ingredient) => {
 
-  recipe.ingredients.forEach((ingredient) => {
-    ingredientsIDs.push(ingredientsQueries.addOne({name: ingredient.ingredient}));
-    measurementsIDs.push(measurementsQueries.addOne({name: ingredient.measurement}));
-    quantities.push(ingredient.quantity);
-  });
-
-  quantities.forEach((quantity, index) => {
-    const newQuantity = {
+    newQuantity = {
       recipeId: recipeId.id,
-      ingredientId: ingredientsIDs[index].id,
-      measurementId: measurementsIDs[index].id,
-      ingredientQuantity: quantity
-    };
-    quantitiesQueries.addOne(newQuantity);
+      ingredientId: (await ingredientsQueries.addOne({name: ingredient.ingredient})).id,
+      measurementId: (await measurementsQueries.addOne({name: ingredient.measurement})).id,
+      ingredientQuantity: ingredient.quantity
+    }
+
+    await quantitiesQueries.addOne(newQuantity)
+
   });
 
+  //Add the step sections
   recipe.steps.forEach((step) => {
     const newStep = {
       recipeId: recipeId.id,
@@ -36,7 +32,8 @@ const addFullRecipe = async (recipe) => {
     };
     stepsQueries.addOne(newStep);
   });
-  console.log(recipeId);
+
+  //Return the recipe ID for the router to display the info
   return recipeId;
 };
 
