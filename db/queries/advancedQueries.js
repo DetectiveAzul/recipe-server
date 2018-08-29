@@ -5,8 +5,8 @@ const quantitiesQueries = require('./quantitiesqueries.js');
 const stepsQueries = require('./stepsQueries.js');
 
 //ADVANCED QUERY
-const addFullRecipe = (recipe) => {
-  const recipeId = recipesQueries.addOne(recipe.info);
+const addFullRecipe = async (recipe) => {
+  const recipeId = await recipesQueries.addOne(recipe.info);
 
   const ingredientsIDs = []
   const measurementsIDs = []
@@ -36,7 +36,7 @@ const addFullRecipe = (recipe) => {
     };
     stepsQueries.addOne(newStep);
   });
-
+  console.log(recipeId);
   return recipeId;
 };
 
