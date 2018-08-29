@@ -80,7 +80,7 @@ router.post(`${BASE_URL}`, async (ctx) => {
   }
 });
 
-router.post('/api/recipes/test', async (ctx) => {
+router.post(`${BASE_URL}/full`, async (ctx) => {
   try {
     const dataId = await advancedQueries.addFullRecipe(ctx.request.body);
     const data = await queries.getOne(dataId.id);
