@@ -8,13 +8,13 @@ const stepsQueries = require('./stepsQueries.js');
 const addFullRecipe = (recipe) => {
   const recipeId = recipesQueries.addOne(recipe.info);
 
-  const ingedientIDs = []
-  const measurementIDs = []
+  const ingredientsIDs = []
+  const measurementsIDs = []
   const quantities = []
 
   recipe.ingredients.forEach((ingredient) => {
-    ingredientIDs.push(ingredientsQueries.addOne({name: ingredient.ingredient}));
-    measurementIDs.push(measurementQueries.addOne({name: ingredient.measurement}));
+    ingredientsIDs.push(ingredientsQueries.addOne({name: ingredient.ingredient}));
+    measurementsIDs.push(measurementsQueries.addOne({name: ingredient.measurement}));
     quantities.push(ingredient.quantity);
   });
 
@@ -22,7 +22,7 @@ const addFullRecipe = (recipe) => {
     const newQuantity = {
       recipeId: recipeId.id,
       ingredientId: ingredientsIDs[index].id,
-      measurementId: measurementIDs[index].id,
+      measurementId: measurementsIDs[index].id,
       ingredientQuantity: quantity
     };
     quantitiesQueries.addOne(newQuantity);
