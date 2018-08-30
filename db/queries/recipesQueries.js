@@ -43,13 +43,13 @@ const getOne = (oldId) => {
 
 // ADD NEW RECIPE
 const addOne = (body) => {
-  return db.one('INSERT INTO recipes(name, description) ' +
-  'VALUES (${name}, ${description}) RETURNING id', body);
+  return db.one('INSERT INTO recipes(name, description, preptime, cooktime) ' +
+  'VALUES (${name}, ${description}, ${preptime}, ${cooktime}) RETURNING id', body);
 };
 
 // EDIT ONE RECIPE
 const updateOne = (oldId, body) => {
-  return db.one('UPDATE recipes SET name=$1, description=$2 WHERE id=$3 RETURNING id',
+  return db.one('UPDATE recipes SET name=$1, description=$2, preptime=$3, cooktime=${4} WHERE id=$5 RETURNING id',
     [body.name, body.description, parseInt(oldId)]);
 };
 

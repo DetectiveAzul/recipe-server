@@ -1,6 +1,6 @@
 INSERT INTO
-recipes (name, description)
-VALUES ('Lasagna', 'Italian Pasta');
+recipes (name, description, preptime, cooktime)
+VALUES ('Lasagna', 'Italian Pasta', '01:00', '02:00');
 
 SELECT * FROM recipes;
 
