@@ -25,7 +25,7 @@ CREATE TABLE quantities(
   recipeId INT8 REFERENCES recipes(id) ON DELETE CASCADE,
   ingredientId INT8 REFERENCES ingredients(id) ON DELETE CASCADE,
   measurementId INT8 REFERENCES measurements(id) ON DELETE CASCADE,
-  ingredientQuantity INT
+  ingredientQuantity REAL
 );
 
 CREATE TABLE steps(
