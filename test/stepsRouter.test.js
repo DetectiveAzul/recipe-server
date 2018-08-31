@@ -29,7 +29,7 @@ describe('routes : steps', () => {
         // the first object in the data array should
         // have the right keys
         res.body.data[0].should.include.keys(
-          'id', 'recipeid', 'stepnumber', 'stepdescription'
+          'id', 'recipe_id', 'step_number', 'step_description'
         );
         done();
       });
@@ -53,7 +53,7 @@ describe('routes : steps', () => {
         // the JSON response body should have a
         // key-value pair of {"data": 1 step object}
         res.body.data.should.include.keys(
-          'id', 'recipeid', 'stepnumber', 'stepdescription'
+          'id', 'recipe_id', 'step_number', 'step_description'
         );
         done();
       });
@@ -85,9 +85,9 @@ describe('routes : steps', () => {
       chai.request(server)
       .post('/api/steps')
       .send({
-        recipeId: 1,
-        stepNumber: 1,
-        stepDescription: 'Hola'
+        recipe_id: 1,
+        step_number: 1,
+        step_description: 'Hola'
       })
       .end((err, res) => {
         // there should be no errors
@@ -103,7 +103,7 @@ describe('routes : steps', () => {
         // the JSON response body should have a
         // key-value pair of {"data": 1 step object}
         res.body["new_entry"].should.include.keys(
-          'id', 'recipeid', 'stepnumber', 'stepdescription'
+          'id', 'recipe_id', 'step_number', 'step_description'
         );
         done();
       });
@@ -156,7 +156,7 @@ describe('routes : steps', () => {
           // the JSON response body should have a
           // key-value pair of {"data": 1 step object}
           res.body["updated_entry"].should.include.keys(
-            'id', 'recipeid', 'stepnumber', 'stepdescription'
+            'id', 'recipe_id', 'step_number', 'step_description'
           );
           // ensure the step was in fact updated
           const newStep = res.body["updated_entry"];
