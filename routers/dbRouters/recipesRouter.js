@@ -116,6 +116,23 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
   }
 });
 
+router.put(`${BASE_URL}/:id/full`, async (ctx) => {
+  try {
+    await advancedQueries.updateFullRecipe(ctx.params.id, ctx.request.body);
+    const data = await queries.getOne(ctx.params.id);
+    ctx.body = {
+      status: 'success',
+      updated_entry: data
+    };
+  } catch (err) {
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.'
+    };
+  }
+});
+
 //DESTROY ALL
 router.delete(`${BASE_URL}/`, async (ctx) => {
   try {
