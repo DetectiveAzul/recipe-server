@@ -37,6 +37,28 @@ const addFullRecipe = async (recipe) => {
   return recipeId;
 };
 
+const updateFullRecipe = async (id, newRecipe) => {
+  await recipesQueries.updateOne(id, newRecipe.info);
+
+  newRecipe.ingredients.forEach(async (ingredient) => {
+    await ingredientsQueries.updateOne(ingredient.id, ingredient);
+  });
+
+  newRecipe.steps.forEach(async (step) => {
+    await stepsQueries.updateOne(step.id, step);
+  });
+
+  newRecipe.measurements.forEach(async (measurement) => {
+    await measurementsQueries.updateOne(measurement.id, measurement);
+  });
+
+  newRecipe.quantities.forEach(async (quantity) => {
+    await quantitiesQueries.updateOne(quantity.id, quantity);
+  });
+
+}
+
 module.exports = {
-  addFullRecipe: addFullRecipe
+  addFullRecipe: addFullRecipe,
+  updateFullRecipe: updateFullRecipe
 };
