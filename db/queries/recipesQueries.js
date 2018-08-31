@@ -9,29 +9,29 @@ const getAll = () => {
 //Advanced Getters
 const getAllStepsFromRecipe = (recipeId) => {
   const id = recipeId;
-  return db.any('SELECT * FROM steps WHERE recipeid = $1 ORDER BY stepnumber', id)
+  return db.any('SELECT * FROM steps WHERE recipe_id = $1 ORDER BY step_number', id)
 };
 
-const getAllIngredientsFromRecipe = (recipeId) => {
-  const id = recipeId;
+const getAllIngredientsFromRecipe = (recipe_id) => {
+  const id = recipe_id;
   return db.any('SELECT ingredients.* FROM ingredients ' +
   'INNER JOIN quantities ' +
-  'ON quantities.ingredientid = ingredients.id ' +
-  'WHERE quantities.recipeid = $1', id);
+  'ON quantities.ingredient_id = ingredients.id ' +
+  'WHERE quantities.recipe_id = $1', id);
 };
 
-const getAllQuantitiesFromRecipe = (recipeId) => {
-  const id = recipeId;
-  return db.any('SELECT quantities.id, quantities.ingredientquantity FROM quantities ' +
-  'WHERE quantities.recipeid = $1', id);
+const getAllQuantitiesFromRecipe = (recipe_id) => {
+  const id = recipe_id;
+  return db.any('SELECT quantities.id, quantities.ingredient_quantity FROM quantities ' +
+  'WHERE quantities.recipe_id = $1', id);
 };
 
-const getAllMeasurementsFromRecipe = (recipeId) => {
-  const id = recipeId;
+const getAllMeasurementsFromRecipe = (recipe_id) => {
+  const id = recipe_id;
   return db.any('SELECT measurements.* FROM measurements ' +
   'INNER JOIN quantities ' +
-  'ON quantities.measurementid = measurements.id ' +
-  'WHERE quantities.recipeid = $1', id);
+  'ON quantities.measurement_id = measurements.id ' +
+  'WHERE quantities.recipe_id = $1', id);
 };
 
 
@@ -43,14 +43,14 @@ const getOne = (oldId) => {
 
 // ADD NEW RECIPE
 const addOne = (body) => {
-  return db.one('INSERT INTO recipes(name, description, preptime, cooktime) ' +
-  'VALUES (${name}, ${description}, ${preptime}, ${cooktime}) RETURNING id', body);
+  return db.one('INSERT INTO recipes(name, description, prep_time, cook_time) ' +
+  'VALUES (${name}, ${description}, ${prep_time}, ${cook_time}) RETURNING id', body);
 };
 
 // EDIT ONE RECIPE
 const updateOne = (oldId, body) => {
-  return db.one('UPDATE recipes SET name=$1, description=$2, preptime=$3, cooktime=${4} WHERE id=$5 RETURNING id',
-    [body.name, body.description, body.preptime, body.cooktime, parseInt(oldId)]);
+return db.one('UPDATE recipes SET name=$1, description=$2, prep_time=$3, cook_time=$4 WHERE id=$5 RETURNING id',
+    [body.name, body.description, body.prep_time, body.cook_time, parseInt(oldId)]);
 };
 
 // DELETE ONE RECIPE

@@ -1,5 +1,5 @@
 INSERT INTO
-recipes (name, description, preptime, cooktime)
+recipes (name, description, prep_time, cook_time)
 VALUES ('Lasagna', 'Italian Pasta', '01:00', '02:00');
 
 SELECT * FROM recipes;
@@ -22,13 +22,13 @@ VALUES ('pint');
 SELECT * FROM measurements;
 
 INSERT INTO
-quantities(recipeId, ingredientId, measurementId, ingredientQuantity)
+quantities(recipe_id, ingredient_id, measurement_id, ingredient_quantity)
 VALUES(1, 1, 1, 4);
 
 SELECT * FROM quantities;
 
 INSERT INTO
-steps(recipeId, stepNumber, stepDescription)
+steps(recipe_id, step_number, step_description)
 VALUES(1, 1, 'Throw the eggs');
 
 SELECT * FROM steps;

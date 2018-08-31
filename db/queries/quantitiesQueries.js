@@ -14,18 +14,18 @@ const getOne = (oldId) => {
 
 // ADD NEW RECIPE
 const addOne = (body) => {
-  return db.one('INSERT INTO quantities(recipeId, ingredientId, measurementId, ingredientQuantity) ' +
-  'VALUES (${recipeId}, ${ingredientId}, ${measurementId}, ${ingredientQuantity}) '
+  return db.one('INSERT INTO quantities(recipe_id, ingredient_id, measurement_id, ingredient_quantity) ' +
+  'VALUES (${recipe_id}, ${ingredient_id}, ${measurement_id}, ${ingredient_quantity}) '
   + 'RETURNING id', body);
 };
 
 // EDIT ONE RECIPE
 const updateOne = (oldId, body) => {
-  return db.one('UPDATE quantities SET recipeId=$1, ingredientId=$2, measurementId=$3, '
-  + 'ingredientQuantity=$4 WHERE id=$5 '
+  return db.one('UPDATE quantities SET recipe_id=$1, ingredient_id=$2, measurement_id=$3, '
+  + 'ingredient_quantity=$4 WHERE id=$5 '
   + 'RETURNING id',
-    [body.recipeId, body.ingredientId, body.measurementId,
-      body.ingredientQuantity, parseInt(oldId)]);
+    [body.recipe_id, body.ingredient_id, body.measurement_id,
+      body.ingredient_quantity, parseInt(oldId)]);
 };
 
 // DELETE ONE RECIPE

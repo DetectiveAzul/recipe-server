@@ -14,16 +14,16 @@ const getOne = (oldId) => {
 
 // ADD NEW RECIPE
 const addOne = (body) => {
-  return db.one('INSERT INTO steps(recipeId, stepNumber, stepDescription) ' +
-  'VALUES (${recipeId}, ${stepNumber}, ${stepDescription}) '
+  return db.one('INSERT INTO steps(recipe_id, step_number, step_description) ' +
+  'VALUES (${recipe_id}, ${step_number}, ${step_description}) '
   + 'RETURNING id', body);
 };
 
 // EDIT ONE RECIPE
 const updateOne = (oldId, body) => {
-  return db.one('UPDATE steps SET recipeId=$1, stepNumber=$2, stepDescription=$3 WHERE id=$4 '
+  return db.one('UPDATE steps SET recipe_id=$1, step_number=$2, step_description=$3 WHERE id=$4 '
   + 'RETURNING id',
-    [body.recipeId, body.stepNumber, body.stepDescription, parseInt(oldId)]);
+    [body.recipe_id, body.step_number, body.step_description, parseInt(oldId)]);
 };
 
 // DELETE ONE RECIPE

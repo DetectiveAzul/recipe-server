@@ -8,8 +8,8 @@ CREATE TABLE recipes(
   id SERIAL8 PRIMARY KEY,
   name VARCHAR(255),
   description TEXT,
-  preptime TIME,
-  cooktime TIME
+  prep_time TIME,
+  cook_time TIME
 );
 
 CREATE TABLE ingredients(
@@ -24,15 +24,15 @@ CREATE TABLE measurements(
 
 CREATE TABLE quantities(
   id SERIAL8 PRIMARY KEY,
-  recipeId INT8 REFERENCES recipes(id) ON DELETE CASCADE,
-  ingredientId INT8 REFERENCES ingredients(id) ON DELETE CASCADE,
-  measurementId INT8 REFERENCES measurements(id) ON DELETE CASCADE,
-  ingredientQuantity REAL
+  recipe_id INT8 REFERENCES recipes(id) ON DELETE CASCADE,
+  ingredient_id INT8 REFERENCES ingredients(id) ON DELETE CASCADE,
+  measurement_id INT8 REFERENCES measurements(id) ON DELETE CASCADE,
+  ingredient_quantity REAL
 );
 
 CREATE TABLE steps(
   id SERIAL8 PRIMARY KEY,
-  recipeId INT8 REFERENCES recipes(id) ON DELETE CASCADE,
-  stepNumber INT8,
-  stepDescription TEXT
+  recipe_id INT8 REFERENCES recipes(id) ON DELETE CASCADE,
+  step_number INT8,
+  step_description TEXT
 );

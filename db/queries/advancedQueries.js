@@ -13,10 +13,10 @@ const addFullRecipe = async (recipe) => {
   recipe.ingredients.forEach(async (ingredient) => {
 
     newQuantity = {
-      recipeId: recipeId.id,
-      ingredientId: (await ingredientsQueries.addOne({name: ingredient.ingredient})).id,
-      measurementId: (await measurementsQueries.addOne({name: ingredient.measurement})).id,
-      ingredientQuantity: ingredient.quantity
+      recipe_id: recipe_id.id,
+      ingredient_id: (await ingredientsQueries.addOne({name: ingredient.ingredient})).id,
+      measurement_id: (await measurementsQueries.addOne({name: ingredient.measurement})).id,
+      ingredient_quantity: ingredient.quantity
     }
 
     await quantitiesQueries.addOne(newQuantity)
@@ -26,9 +26,9 @@ const addFullRecipe = async (recipe) => {
   //Add the step sections
   recipe.steps.forEach((step) => {
     const newStep = {
-      recipeId: recipeId.id,
-      stepNumber: step.stepNumber,
-      stepDescription: step.stepDescription
+      recipe_id: recipe_id.id,
+      step_number: step.step_number,
+      step_description: step.step_description
     };
     stepsQueries.addOne(newStep);
   });
