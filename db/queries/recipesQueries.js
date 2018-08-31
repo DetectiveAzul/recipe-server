@@ -50,7 +50,7 @@ const addOne = (body) => {
 // EDIT ONE RECIPE
 const updateOne = (oldId, body) => {
   return db.one('UPDATE recipes SET name=$1, description=$2, preptime=$3, cooktime=${4} WHERE id=$5 RETURNING id',
-    [body.name, body.description, parseInt(oldId)]);
+    [body.name, body.description, body.preptime, body.cooktime, parseInt(oldId)]);
 };
 
 // DELETE ONE RECIPE
