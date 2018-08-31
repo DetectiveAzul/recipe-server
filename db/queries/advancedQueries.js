@@ -7,7 +7,7 @@ const stepsQueries = require('./stepsQueries.js');
 //ADVANCED QUERY
 const addFullRecipe = async (recipe) => {
   //Add the recipe info
-  const recipeId = await recipesQueries.addOne(recipe.info);
+  const recipe_id = await recipesQueries.addOne(recipe.info);
 
   //Split the ingredient key and add them to their specifics psql tables
   recipe.ingredients.forEach(async (ingredient) => {
@@ -34,7 +34,7 @@ const addFullRecipe = async (recipe) => {
   });
 
   //Return the recipe ID for the router to display the info
-  return recipeId;
+  return recipe_id;
 };
 
 const updateFullRecipe = async (id, newRecipe) => {
