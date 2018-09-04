@@ -33,6 +33,23 @@ router.get(`${BASE_URL}`, async (ctx) => {
   }
 })
 
+// SHOW RANDOM
+router.get(`${BASE_URL}/random`, async (ctx) => {
+  try{
+    const data = await queries.getOneRandom();
+    ctx.body = {
+      status: 'Random recipe success',
+      data: data
+    }
+  } catch(err){
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.'
+    }
+  }
+});
+
 //SHOW
 router.get(`${BASE_URL}/:id`, async (ctx) => {
   try {

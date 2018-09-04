@@ -41,6 +41,11 @@ const getOne = (oldId) => {
   return db.one('SELECT * FROM recipes WHERE id = $1', id);
 };
 
+// GET SINGLE RANDOM RECIPE
+const getOneRandom = () => {
+  return db.one('SELECT * FROM recipes ORDER BY RANDOM() LIMIT 1')
+}
+
 // ADD NEW RECIPE
 const addOne = (body) => {
   return db.one('INSERT INTO recipes(name, description, prep_time, cook_time) ' +
@@ -72,6 +77,7 @@ module.exports = {
     getAllQuantities: getAllQuantitiesFromRecipe,
     getAllMeasurements: getAllMeasurementsFromRecipe,
     getOne: getOne,
+    getOneRandom: getOneRandom,
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
