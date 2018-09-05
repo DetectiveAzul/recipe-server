@@ -29,7 +29,7 @@ describe('routes : quantities', () => {
         // the first object in the data array should
         // have the right keys
         res.body.data[0].should.include.keys(
-          'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
+          'id', 'recipe_id', 'ingredient_id', 'measurement_id', 'ingredient_quantity'
         );
         done();
       });
@@ -53,7 +53,7 @@ describe('routes : quantities', () => {
         // the JSON response body should have a
         // key-value pair of {"data": 1 quantity object}
         res.body.data.should.include.keys(
-          'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
+          'id', 'recipe_id', 'ingredient_id', 'measurement_id', 'ingredient_quantity'
         );
         done();
       });
@@ -85,10 +85,10 @@ describe('routes : quantities', () => {
       chai.request(server)
       .post('/api/quantities')
       .send({
-        recipeId: 1,
-        ingredientId: 1,
-        measurementId: 1,
-        ingredientQuantity: 20.00
+        recipe_id: 1,
+        ingredient_id: 1,
+        measurement_id: 1,
+        ingredient_quantity: 20.00
       })
       .end((err, res) => {
         // there should be no errors
@@ -104,7 +104,7 @@ describe('routes : quantities', () => {
         // the JSON response body should have a
         // key-value pair of {"data": 1 quantity object}
         res.body["new_entry"].should.include.keys(
-          'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
+          'id', 'recipe_id', 'ingredient_id', 'measurement_id', 'ingredient_quantity'
         );
         done();
       });
@@ -140,7 +140,7 @@ describe('routes : quantities', () => {
         chai.request(server)
         .put(`/api/quantities/2`)
         .send({
-          ingredientQuantity: 5.00
+          ingredient_quantity: 5.00
         })
         .end((err, res) => {
           // there should be no errors
@@ -155,11 +155,11 @@ describe('routes : quantities', () => {
           // the JSON response body should have a
           // key-value pair of {"data": 1 quantity object}
           res.body["updated_entry"].should.include.keys(
-            'id', 'recipeid', 'ingredientid', 'measurementid', 'ingredientquantity'
+            'id', 'recipe_id', 'ingredient_id', 'measurement_id', 'ingredient_quantity'
           );
           // ensure the quantity was in fact updated
           const newQuantity = res.body["updated_entry"];
-          newQuantity.ingredientquantity.should.not.eql(20.00);
+          newQuantity.ingredient_quantity.should.not.eql(20.00);
           done();
         });
       });

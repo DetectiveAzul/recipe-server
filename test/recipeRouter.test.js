@@ -87,6 +87,8 @@ describe('routes : recipes', () => {
       .send({
         name: 'Pollo raro',
         description: 'New Creation',
+        prep_time: '10:10',
+        cook_time: '10:10'
       })
       .end((err, res) => {
         // there should be no errors
@@ -139,7 +141,9 @@ describe('routes : recipes', () => {
         .put(`/api/recipes/2`)
         .send({
           name: 'Greok',
-          description: 'Greoooook'
+          description: 'Greoooook',
+          prep_time: '10:10',
+          cook_time: '10:10'
         })
         .end((err, res) => {
           // there should be no errors

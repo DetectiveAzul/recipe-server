@@ -139,9 +139,9 @@ describe('routes : steps', () => {
         chai.request(server)
         .put(`/api/steps/2`)
         .send({
-          recipeId: 1,
-          stepNumber: 2,
-          stepDescription: 'Pedro'
+          recipe_id: 1,
+          step_number: 2,
+          step_description: 'Pedro'
         })
         .end((err, res) => {
           // there should be no errors
@@ -160,7 +160,7 @@ describe('routes : steps', () => {
           );
           // ensure the step was in fact updated
           const newStep = res.body["updated_entry"];
-          newStep.stepnumber.should.not.eql(1);
+          newStep.step_number.should.not.eql(1);
           done();
         });
       });
