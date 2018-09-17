@@ -1,6 +1,6 @@
 const recipesQueries = require('./recipesQueries.js');
 const ingredientsQueries = require('./ingredientsQueries.js');
-const measurementsQueries = require('./measurementsqueries.js');
+const measurementsQueries = require('./measurementsQueries.js');
 const quantitiesQueries = require('./quantitiesQueries.js');
 const stepsQueries = require('./stepsQueries.js');
 
